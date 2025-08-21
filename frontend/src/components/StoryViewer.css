@@ -196,7 +196,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   pointer-events: none;
 }
 
@@ -224,7 +224,7 @@
 }
 
 .story-nav-btn.next-btn {
-  right: 20px;
+  right: 5px;
 }
 
 /* Loading */

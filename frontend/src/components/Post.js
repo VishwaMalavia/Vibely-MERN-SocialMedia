@@ -25,14 +25,14 @@ const Post = ({ post, onPostUpdate, onPostDelete, onClick }) => {
   // Helper function to check if current user is following the post author
   const checkFollowStatus = async () => {
     if (isOwnPost) return;
-    
+
     try {
       const response = await fetch(`http://localhost:5000/api/users/profile/${post.user.username}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
@@ -248,7 +248,7 @@ const Post = ({ post, onPostUpdate, onPostDelete, onClick }) => {
             <span className="post-time">{formatTimeAgo(post.createdAt)}</span>
           </div>
         </div>
-        
+
         <div className="post-options">
           <button
             className="options-btn"
@@ -261,7 +261,7 @@ const Post = ({ post, onPostUpdate, onPostDelete, onClick }) => {
               <button onClick={copyLink}>Copy Link</button>
               {isOwnPost ? (
                 <>
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleArchive();
@@ -269,22 +269,22 @@ const Post = ({ post, onPostUpdate, onPostDelete, onClick }) => {
                   >
                     Archive
                   </button>
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDelete();
-                    }} 
+                    }}
                     className="delete-btn"
                   >
                     Delete
                   </button>
                 </>
               ) : (
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     handleFollow();
-                  }} 
+                  }}
                   className={isFollowing ? 'unfollow-btn' : 'follow-btn'}
                 >
                   {isFollowing ? 'Unfollow' : 'Follow'}
@@ -371,12 +371,12 @@ const Post = ({ post, onPostUpdate, onPostDelete, onClick }) => {
                   onClick={() => handleDeleteComment(comment._id)}
                   style={{ background: 'none', border: 'none', color: '#ed4956', cursor: 'pointer', fontSize: '12px' }}
                 >
-                  Delete
+                  <i className="fas fa-trash"></i>
                 </button>
               )}
             </div>
           ))}
-          
+
           {/* Add Comment */}
           <form onSubmit={handleComment} className="comment-form">
             <input

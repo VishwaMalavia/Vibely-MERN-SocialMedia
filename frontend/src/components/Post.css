@@ -297,3 +297,20 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.delete-comment-btn {
+  background: none;
+  border: none;
+  color: #ed4956;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  padding: 0;
+  margin-left: 8px; /* Add some space between the text and the button */
+}
+
+.delete-comment-btn:hover {
+    opacity: 1;
+}
