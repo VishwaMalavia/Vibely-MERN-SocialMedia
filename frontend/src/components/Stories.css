@@ -1,18 +1,26 @@
+/* STORIES CSS */
+
 .stories-container {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 16px;
   margin: 20px 0;
+  position: relative; /* Essential for positioning the arrows */
+}
+
+.stories-scroll-wrapper {
+  position: relative;
   overflow: hidden;
 }
 
 .stories-scroll {
   display: flex;
-  gap: 0; /* Remove gap to eliminate extra space */
+  gap: 16px; 
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  scroll-behavior: smooth; /* Enables smooth scrolling */
 }
 
 .stories-scroll::-webkit-scrollbar {
@@ -23,11 +31,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* min-width: 80px; */
+  flex: 0 0 auto;
   cursor: pointer;
-  width: 100%; /* Set width to 100% to fill the container */
-  margin: 0; /* Remove extra margin */
-  padding: 0; /* Remove extra padding */
+  width: 80px; /* Set a fixed width for consistent sizing */
+  margin: 0;
+  padding: 0;
+  scroll-snap-align: center; /* Snap to center of item */
 }
 
 .story-link {
@@ -222,70 +231,10 @@
   cursor: not-allowed;
 }
 
-/* Slider for Stories - Updated styles */
-.stories-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.slider-container {
-  position: relative;
-  overflow: hidden;
-}
-
+/* Slider for Stories */
 .stories-scroll {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
   padding: 20px 0;
-  scroll-snap-type: x mandatory;
-  transition: transform 0.5s ease-in-out;
 }
-
-.story-item {
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 15%; /* Adjusted for better spacing */
-  max-width: 15%; /* Adjusted for better spacing */
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-}
-.stories-scroll {
-  gap: 16px; /* Ensured gap is sufficient */
-}
-
-.story-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-}
-
-/* Responsive Layout */
-@media (max-width: 1200px) {
-  .story-item {
-  min-width: 25%; /* Adjusted for better spacing */
-  max-width: 25%; /* Adjusted for better spacing */
-}
-}
-/* 
-@media (max-width: 992px) {
-  .story-item {
-    min-width: 50%;
-    max-width: 50%;
-  }
-}
-
-@media (max-width: 768px) {
-  .story-item {
-    min-width: 100%;
-    max-width: 100%;
-  }
-} */
-
-/* Navigation Arrows */
 .scroll-left,
 .scroll-right {
   position: absolute;
@@ -299,6 +248,7 @@
   padding: 10px;
   font-size: 20px;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .scroll-left:hover,
@@ -308,5 +258,8 @@
 }
 
 .scroll-left {
-  left: 20px;
+  left: 5px;
+}
+.scroll-right {
+  right: 5px;
 }

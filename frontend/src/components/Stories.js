@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getCurrentUser, getProfilePicUrl } from '../utils/profileUtils';
 import './Stories.css';
@@ -11,6 +11,7 @@ const Stories = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const [user, setUser] = useState(getCurrentUser());
+  const storiesContainerRef = useRef(null); // Create a ref to the container
 
   // Listen for profile updates
   useEffect(() => {
@@ -92,52 +93,76 @@ const Stories = () => {
     return 'Expired';
   };
 
+  // Function to scroll left
+  const scrollLeft = () => {
+    if (storiesContainerRef.current) {
+      storiesContainerRef.current.scrollBy({
+        left: -200, // Scroll a fixed amount to the left
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  // Function to scroll right
+  const scrollRight = () => {
+    if (storiesContainerRef.current) {
+      storiesContainerRef.current.scrollBy({
+        left: 200, // Scroll a fixed amount to the right
+        behavior: 'smooth',
+      });
+    }
+  };
+
   if (loading) {
     return <div className="stories-loading">Loading stories...</div>;
   }
 
   return (
     <div className="stories-container">
-      <div className="stories-scroll">
-        {/* User's own story */}
-        <div className="story-item own-story">
-          {userStories.length > 0 ? (
-            <div className="story-link-wrapper">
-              <Link to={`/story/${userStories[0]._id}`} className="story-link">
+      <div className="stories-scroll-wrapper">
+        <div className="stories-scroll" ref={storiesContainerRef}>
+          {/* User's own story */}
+          <div className="story-item own-story">
+            {userStories.length > 0 ? (
+              <div className="story-link-wrapper">
+                <Link to={`/story/${userStories[0]._id}`} className="story-link">
+                  <div className="story-avatar">
+                    <img src={user.profilePic} alt={user.username} />
+                    <div className="story-indicator active"></div>
+                  </div>
+                  <span className="story-username">Your story</span>
+                </Link>
+                <button className="add-story-btn" title="Add Story" onClick={() => setShowCreateStory(true)}>
+                  <span className="add-story-plus">+</span>
+                </button>
+              </div>
+            ) : (
+              <div className="story-item create-story" onClick={() => setShowCreateStory(true)}>
                 <div className="story-avatar">
                   <img src={user.profilePic} alt={user.username} />
-                  <div className="story-indicator active"></div>
+                  <div className="create-story-plus">+</div>
                 </div>
-                <span className="story-username">Your story</span>
-              </Link>
-              <button className="add-story-btn" title="Add Story" onClick={() => setShowCreateStory(true)}>
-                <span className="add-story-plus">+</span>
-              </button>
-            </div>
-          ) : (
-            <div className="story-item create-story" onClick={() => setShowCreateStory(true)}>
-              <div className="story-avatar">
-                <img src={user.profilePic} alt={user.username} />
-                <div className="create-story-plus">+</div>
+                <span className="story-username">Create story</span>
               </div>
-              <span className="story-username">Create story</span>
-            </div>
-          )}
-        </div>
-
-        {/* Following users' stories */}
-        {stories.map((story) => (
-          <div key={story._id} className="story-item">
-            <Link to={`/story/${story._id}`} className="story-link">
-              <div className="story-avatar">
-                <img src={getProfilePicUrl(story.user.profilePic)} alt={story.user.username} />
-                <div className="story-indicator"></div>
-              </div>
-              <span className="story-username">{story.user.username}</span>
-              <span className="story-time">{formatTimeAgo(story.createdAt)}</span>
-            </Link>
+            )}
           </div>
-        ))}
+
+          {/* Following users' stories */}
+          {stories.map((story) => (
+            <div key={story._id} className="story-item">
+              <Link to={`/story/${story._id}`} className="story-link">
+                <div className="story-avatar">
+                  <img src={getProfilePicUrl(story.user.profilePic)} alt={story.user.username} />
+                  <div className="story-indicator"></div>
+                </div>
+                <span className="story-username">{story.user.username}</span>
+                <span className="story-time">{formatTimeAgo(story.createdAt)}</span>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <button className="scroll-left" onClick={scrollLeft}>&lt;</button>
+        <button className="scroll-right" onClick={scrollRight}>&gt;</button>
       </div>
 
       {/* Create Story Modal */}
@@ -184,4 +209,4 @@ const Stories = () => {
   );
 };
 
-export default Stories; 
+export default Stories;
