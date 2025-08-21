@@ -135,12 +135,12 @@ const Archive = () => {
           >
             Posts ({archivedPosts.length})
           </button>
-          <button
+          {/* <button
             className={`tab ${activeTab === 'stories' ? 'active' : ''}`}
             onClick={() => setActiveTab('stories')}
           >
             Stories ({archivedStories.length})
-          </button>
+          </button> */}
         </div>
 
         {activeTab === 'posts' && (

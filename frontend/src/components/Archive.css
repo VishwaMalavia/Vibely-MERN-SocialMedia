@@ -195,6 +195,17 @@
   .posts-list {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .restore-btn,
+  .delete-btn {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  .archive-actions {
+    gap: 8px;
+    padding: 12px;
+  }
 }
 
 @media (max-width: 768px) {

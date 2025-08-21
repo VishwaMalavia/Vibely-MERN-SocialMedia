@@ -288,9 +288,9 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
     }
   };
 
-  const handleShare = () => {
-    alert('Share functionality to be implemented');
-  };
+  // const handleShare = () => {
+  //   alert('Share functionality to be implemented');
+  // };
 
   const handleLike = async () => {
     try {
@@ -498,9 +498,9 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
                     }}>
                       <i className="fas fa-comment"></i>
                     </button>
-                    <button className="action-btn" onClick={handleShare}>
+                    {/* <button className="action-btn" onClick={handleShare}>
                       <i className="fas fa-share"></i>
-                    </button>
+                    </button> */}
                   </div>
                   <button className={`action-btn bookmark-btn ${bookmarked ? 'bookmarked' : ''}`} onClick={handleBookmark}>
                     <i className={`fas fa-bookmark ${bookmarked ? 'filled' : ''}`}></i>
