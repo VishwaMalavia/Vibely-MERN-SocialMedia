@@ -218,7 +218,12 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
       });
 
       if (response.ok) {
-        fetchPost();
+        // Update comments state directly after successful deletion
+        setPostData(prevPostData => ({
+          ...prevPostData,
+          comments: prevPostData.comments.filter(c => c._id !== commentId)
+        }));
+        if (onPostUpdate) onPostUpdate(); // Optional: to refresh parent component too
       } else {
         const errorData = await response.json();
         alert(errorData.message || 'Failed to delete comment.');
@@ -252,26 +257,27 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
 
   const handleComment = async (e) => {
     e.preventDefault();
-    if (!comment.trim()) return;
+      if (!comment.trim()) return;
 
-    try {
-      const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/comment`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({ content: comment }),
-      });
+      try {
+        const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/comment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: JSON.stringify({ content: comment }),
+        });
 
-      if (response.ok) {
-        setComment('');
-        fetchPost();
+        if (response.ok) {
+          setComment('');
+          fetchPost();
+        }
+      } catch (error) {
+        console.error('Error commenting:', error);
       }
-    } catch (error) {
-      console.error('Error commenting:', error);
-    }
-  };
+    };
+
 
   const handleShare = () => {
     alert('Share functionality to be implemented');
