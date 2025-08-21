@@ -1,0 +1,293 @@
+.post {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  /* margin-bottom: 20px; */
+  overflow: hidden;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  position: relative;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.post-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+}
+
+.post-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-username {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.post-username:hover {
+  text-decoration: underline;
+}
+
+.post-time {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.post-options {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.options-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--text-primary);
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.options-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+.options-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  min-width: 140px;
+  z-index: 1000;
+  margin-top: 4px;
+  max-width: 200px;
+  word-wrap: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Position dropdown above button if near bottom */
+.options-menu.dropup {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+
+.options-menu button {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: var(--text-primary);
+  border-radius: 0;
+}
+
+.options-menu button:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.options-menu button:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.options-menu button:hover {
+  background-color: var(--bg-hover);
+}
+
+
+.delete-btn {
+  color: var(--danger-color) !important;
+}
+
+.follow-btn {
+  color: var(--primary-color) !important;
+}
+
+.unfollow-btn {
+  color: var(--danger-color) !important;
+}
+
+.post-media {
+  width: 100%;
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.post-media img,
+.post-media video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+.action-btn.liked {
+  color: #e31b23;
+}
+
+.action-btn.bookmarked {
+  color: #667eea;
+}
+
+.bookmark-btn {
+  margin-left: auto;
+}
+
+.post-likes {
+  padding: 0 16px 8px;
+}
+
+.likes-count {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.post-caption {
+  padding: 0 16px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.caption-username {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  margin-right: 8px;
+}
+
+.caption-username:hover {
+  text-decoration: underline;
+}
+
+.caption-text {
+  color: var(--text-primary);
+}
+
+.post-comments {
+  border-top: 1px solid var(--border-color);
+  padding: 12px 16px;
+}
+
+.comment {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.comment-username {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  margin-right: 8px;
+}
+
+.comment-username:hover {
+  text-decoration: underline;
+}
+
+.comment-text {
+  color: var(--text-primary);
+}
+
+.comment-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.comment-form input:focus {
+  border-color: var(--primary-color);
+}
+
+.comment-form button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comment-form button:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.comment-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

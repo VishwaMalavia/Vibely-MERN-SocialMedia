@@ -1,0 +1,234 @@
+/* html, body, .home-container, .home-content, .main-content {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+} */
+
+.home-container {
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+.home-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    /* margin: 0 auto; */
+    padding: 0px 120px 20px;
+    margin-left: 240px; /* Add margin for sidebar */
+    transition: margin-left 0.2s;
+}
+
+/* Shift content when navbar is collapsed (messages page OR search slider open) */
+body.sidebar-icons-only .home-content {
+    margin-left: 72px;
+}
+
+/* Main Content */
+.main-content {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+}
+
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.posts-loading,
+.no-posts {
+    text-align: center;
+    padding: 40px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+}
+
+.no-posts h3 {
+    margin: 0 0 10px 0;
+    color: var(--text-primary);
+}
+
+/* Right Sidebar */
+.right-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-primary);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-content h3 {
+    margin: 0 0 20px 0;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    box-sizing: border-box;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background: var(--bg-primary);
+}
+
+.file-upload {
+    margin-bottom: 20px;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload-label {
+    display: block;
+    padding: 12px;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: border-color 0.2s ease;
+}
+
+.file-upload-label:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.preview {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.preview img,
+.preview video {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+}q3
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.cancel-btn,
+.create-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background: #f8f9fa;
+    color: #666;
+}
+
+.cancel-btn:hover {
+    background: #e9ecef;
+}
+
+.create-btn {
+    background: #667eea;
+    color: white;
+}
+
+.create-btn:hover:not(:disabled) {
+    background: #5a6fd8;
+}
+
+.create-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+
+@media (max-width: 900px) {
+  .home-content {
+    margin-left: 72px;
+  }
+  
+  body.content-shifted .home-content {
+    margin-left: 72px;
+  }
+}
+
+@media (max-width: 1024px) {
+    .home-content {
+        grid-template-columns: 1fr;
+        padding: 80px 15px 85px;
+        margin-left: 0 !important;
+    }
+
+    .right-sidebar {
+        display: none;
+    }
+
+    .main-content {
+        max-width: 100%;
+    }
+}
+
+/* Tablet specific padding (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .home-content {
+        padding: 80px 100px 85px 100px;
+    }
+}
+
+.messages-page-container .main-content {
+  margin: 0;
+  max-width: 100%;
+}
+
+/* hr, .horizontal-rule, .home-container hr, .main-content hr {
+  display: none !important;
+  border: none !important;
+  height: 0 !important;
+} */

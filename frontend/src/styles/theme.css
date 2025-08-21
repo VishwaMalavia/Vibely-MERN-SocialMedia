@@ -1,0 +1,380 @@
+/* Global Theme Variables */
+:root {
+  /* Light theme (default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --bg-hover: #f8f9fa;
+  --bg-accent: #f0f8ff;
+  --bg-accent-hover: #e6f3ff;
+  /* --text-primary: #333333; */
+  --text-secondary: #666666;
+  --border-color: #e1e5e9;
+  --border-light: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-bg: #f8f9fa;
+  --primary-color: #0095f6;
+  --primary-hover: #0081d6;
+  --accent-color: #667eea;
+  --accent-hover: #5a6fd8;
+  --error-color: #ed4956;
+  --danger-color: #ed4956;
+  --danger-hover: #c73e4a;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+}
+
+/* Dark theme */
+.theme-dark {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #404040;
+  --bg-hover: #404040;
+  --bg-accent: #2a3f5f;
+  --bg-accent-hover: #1e2f4a;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border-color: #404040;
+  --border-light: #333333;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --hover-bg: #404040;
+  --primary-color: #0095f6;
+  --primary-hover: #0081d6;
+  --accent-color: #667eea;
+  --accent-hover: #5a6fd8;
+  --error-color: #ed4956;
+  --danger-color: #ed4956;
+  --danger-hover: #c73e4a;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+}
+
+/* Apply theme variables to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar theme styles */
+.navbar {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.navbar-brand {
+  color: var(--accent-color);
+}
+
+.search-input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.search-input:focus {
+  background: var(--bg-primary);
+  border-color: var(--accent-color);
+}
+
+.search-results {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.search-result-item {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.search-result-item:hover {
+  background-color: var(--hover-bg);
+}
+
+.search-username {
+  color: var(--text-primary);
+}
+
+.search-name {
+  color: var(--text-secondary);
+}
+
+.nav-link {
+  color: var(--text-primary);
+}
+
+.nav-link:hover {
+  background-color: var(--hover-bg);
+}
+
+.theme-toggle-btn {
+  color: var(--text-primary);
+}
+
+.theme-toggle-btn:hover i {
+  color: var(--accent-color);
+}
+
+.dropdown-content {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.dropdown-content a,
+.dropdown-content button {
+  color: var(--text-primary);
+}
+
+.dropdown-content a:hover,
+.dropdown-content button:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Post theme styles */
+.post {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.post-username {
+  color: var(--text-primary);
+}
+
+.post-time {
+  color: var(--text-secondary);
+}
+
+.post-caption {
+  color: var(--text-primary);
+}
+
+/* Profile theme styles */
+.profile-container {
+  background: var(--bg-primary);
+}
+
+.profile-username {
+  color: var(--text-primary);
+}
+
+.profile-name {
+  color: var(--text-secondary);
+}
+
+.profile-bio {
+  color: var(--text-primary);
+}
+
+/* Stories theme styles */
+.stories-container {
+  background: var(--bg-primary);
+}
+
+.story-username {
+  color: var(--text-primary);
+}
+
+/* Suggestions theme styles */
+.suggestions-container {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.suggestion-username {
+  color: var(--text-primary);
+}
+
+.suggestion-name {
+  color: var(--text-secondary);
+}
+
+/* Messages theme styles */
+.messages-container {
+  background: var(--bg-primary);
+}
+
+.conversation-username {
+  color: var(--text-primary);
+}
+
+.conversation-message {
+  color: var(--text-secondary);
+}
+
+/* Modal theme styles */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+/* Form theme styles */
+input, textarea, select {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+input:focus, textarea:focus, select:focus {
+  background: var(--bg-primary);
+  border-color: var(--accent-color);
+}
+
+/* Button theme styles */
+button {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+button:hover {
+  background: var(--hover-bg);
+}
+
+/* Additional theme styles for common elements */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-primary);
+}
+
+a {
+  color: var(--accent-color);
+}
+
+a:hover {
+  color: var(--accent-color);
+  opacity: 0.8;
+}
+
+/* Loading states */
+.loading, .loading-text {
+  color: var(--text-secondary);
+}
+
+/* Error and success states */
+.error, .error-text {
+  color: var(--error-color);
+}
+
+.success, .success-text {
+  color: var(--success-color);
+}
+
+.warning, .warning-text {
+  color: var(--warning-color);
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Sidebar theme styles */
+.sidebar-navbar {
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+  box-shadow: 2px 0 10px var(--shadow-color);
+}
+
+.sidebar-navbar-brand {
+  color: var(--accent-color);
+}
+
+.sidebar-search-container {
+  /* No color needed, uses children */
+}
+
+.search-input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.search-input:focus {
+  background: var(--bg-primary);
+  border-color: var(--accent-color);
+}
+
+.search-results {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.search-result-item {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.search-result-item:hover {
+  background-color: var(--hover-bg);
+}
+
+.sidebar-nav-links .nav-link {
+  color: var(--text-primary);
+}
+
+.sidebar-nav-links .nav-link:hover {
+  background-color: var(--hover-bg);
+}
+
+.theme-toggle-slide {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.toggle-slider.light {
+  background: #ffd43b;
+  color: #f59f00;
+}
+.toggle-slider.dark {
+  background: #495057;
+  color: #f8f9fa;
+}
+
+.notification-badge {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+.sidebar-profile-dropdown .dropdown-content {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.sidebar-profile-dropdown .dropdown-content a,
+.sidebar-profile-dropdown .dropdown-content button {
+  color: var(--text-primary);
+}
+
+.sidebar-profile-dropdown .dropdown-content a:hover,
+.sidebar-profile-dropdown .dropdown-content button:hover {
+  background-color: var(--hover-bg);
+}
+
+.logout-btn {
+  color: var(--danger-color);
+}
+
+.logout-btn:hover {
+  background: var(--hover-bg);
+}
+
+/* Main content margin for sidebar */
+.main-content {
+  /* background: var(--bg-primary);  */
+  color: var(--text-primary);
+} 

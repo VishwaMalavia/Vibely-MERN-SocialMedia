@@ -1,0 +1,118 @@
+.bookmarks-container {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.bookmarks-content {
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+.bookmarks-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.bookmarks-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.bookmarks-header p {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.bookmarks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.bookmarked-post-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.bookmark-actions {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.remove-bookmark-btn {
+  padding: 8px 16px;
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.remove-bookmark-btn:hover {
+  background: var(--danger-hover);
+}
+
+.no-bookmarks {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.no-bookmarks h3 {
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.no-bookmarks p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.bookmarks-loading {
+  text-align: center;
+  padding: 100px 20px;
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+/* Responsive design for different screen sizes */
+@media (max-width: 1024px) {
+  .bookmarks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bookmarks-header {
+    padding: 0 20px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bookmarks-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .bookmarks-content {
+    padding: 10px 20px;
+  }
+}
