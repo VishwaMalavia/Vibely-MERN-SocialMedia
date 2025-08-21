@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+// frontend/src/components/PostModal.js
+
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getProfilePicUrl, getMediaUrl } from '../utils/profileUtils';
 import './PostModal.css';
@@ -21,7 +23,8 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
   const userId = currentUser._id || currentUser.id;
   const isOwnPost = postData && postData.user._id && userId && postData.user._id.toString() === userId.toString();
 
-  const fetchPost = async (id) => {
+  const fetchPost = useCallback(async (id = postId) => {
+    if (!id) return;
     try {
       const response = await fetch(`http://localhost:5000/api/posts/${id}`, {
         headers: {
@@ -41,20 +44,23 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
     } finally {
       setLoading(false);
     }
-  };
+  }, [postId, onPostUpdate]);
 
   useEffect(() => {
     if (!propPost && postId) {
-      fetchPost(postId);
+      fetchPost();
     } else {
       setLoading(false);
     }
-  }, [postId, propPost]);
+  }, [postId, propPost, fetchPost]);
 
+  // Use this effect to set the follow status when postData is available
   useEffect(() => {
-    setPostData(propPost);
-    checkFollowStatus();
-  }, [propPost]);
+    if (postData) {
+      setPostData(postData);
+      checkFollowStatus();
+    }
+  }, [postData]);
 
   const checkFollowStatus = async () => {
     if (isOwnPost || !postData) return;
@@ -218,12 +224,11 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
       });
 
       if (response.ok) {
-        // Update comments state directly after successful deletion
         setPostData(prevPostData => ({
           ...prevPostData,
           comments: prevPostData.comments.filter(c => c._id !== commentId)
         }));
-        if (onPostUpdate) onPostUpdate(); // Optional: to refresh parent component too
+        if (onPostUpdate) onPostUpdate();
       } else {
         const errorData = await response.json();
         alert(errorData.message || 'Failed to delete comment.');
@@ -234,9 +239,62 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
     }
   };
 
-  const handleLikeComment = async (commentId) => {
+  // const handleLikeComment = async (commentId) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/comments/${commentId}/like`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+  //       },
+  //     });
+
+  //     if (response.ok) {
+  //       fetchPost();
+  //     } else {
+  //       const errorData = await response.json();
+  //       alert(errorData.message || 'Failed to like comment.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error liking comment:', error);
+  //     alert('Network error. Please try again.');
+  //   }
+  // };
+
+  const handleComment = async (e) => {
+    e.preventDefault();
+    if (!comment.trim()) return;
+
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/comments/${commentId}/like`, {
+      const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/comment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({ content: comment }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setPostData(prevPostData => ({
+            ...prevPostData,
+            comments: [...(prevPostData.comments || []), data.comment]
+        }));
+        setComment('');
+        if (onPostUpdate) onPostUpdate();
+      }
+    } catch (error) {
+      console.error('Error commenting:', error);
+    }
+  };
+
+  const handleShare = () => {
+    alert('Share functionality to be implemented');
+  };
+
+  const handleLike = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/like`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -245,91 +303,28 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
 
       if (response.ok) {
         fetchPost();
-      } else {
-        const errorData = await response.json();
-        alert(errorData.message || 'Failed to like comment.');
       }
     } catch (error) {
-      console.error('Error liking comment:', error);
-      alert('Network error. Please try again.');
+      console.error('Error liking post:', error);
     }
   };
 
-  const handleComment = async (e) => {
-    e.preventDefault();
-      if (!comment.trim()) return;
+  const handleBookmark = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/bookmark`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
 
-      try {
-        const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/comment`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-          body: JSON.stringify({ content: comment }),
-        });
-
-        if (response.ok) {
-          setComment('');
-          fetchPost();
-        }
-      } catch (error) {
-        console.error('Error commenting:', error);
+      if (response.ok) {
+        fetchPost();
       }
-    };
-
-
-  const handleShare = () => {
-    alert('Share functionality to be implemented');
+    } catch (error) {
+      console.error('Error bookmarking post:', error);
+    }
   };
-
-
-    const handleLike = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/like`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        if (response.ok) {
-          // Update local postData state to reflect like immediately
-          setPostData(prev => ({
-            ...prev,
-            likes: prev.likes.some(like => like._id === userId)
-              ? prev.likes.filter(like => like._id !== userId)
-              : [...prev.likes, { _id: userId }],
-          }));
-          fetchPost();
-        }
-      } catch (error) {
-        console.error('Error liking post:', error);
-      }
-    };
-
-    const handleBookmark = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/posts/${postData._id}/bookmark`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        if (response.ok) {
-          // Toggle bookmarked state locally immediately
-          setPostData(prev => ({
-            ...prev,
-            bookmarked: !prev.bookmarked,
-          }));
-          fetchPost();
-        }
-      } catch (error) {
-        console.error('Error bookmarking post:', error);
-      }
-    };
-
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
@@ -340,8 +335,12 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
     });
   };
 
-  if (!postData) {
-    return null;
+  if (loading || !postData) {
+    return (
+      <div className="post-modal-overlay">
+        <div className="post-modal-loading">Loading post...</div>
+      </div>
+    );
   }
 
   const liked = postData.likes.some(like => like._id && like._id.toString() === userId.toString());
@@ -379,7 +378,6 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
             )}
           </div>
         )}
-
       </div>
     </div>
   );
@@ -399,40 +397,40 @@ const PostModal = ({ post: propPost, onClose: propOnClose, onPostUpdate, isPage 
               </div>
           </div>
       )}
-            {postData.comments.map((comment) => {
-              const likedComment = comment.likes && comment.likes.some(like => like._id && like._id.toString() === userId.toString());
-              return (
-                <div key={comment._id} className="post-modal-comment">
-                  <Link to={`/profile/${comment.user.username}`} onClick={handleClose}>
-                    <img src={getProfilePicUrl(comment.user.profilePic)} alt={comment.user.username} className="post-modal-comment-avatar" />
-                  </Link>
-                  <div className="post-modal-comment-body">
-                    <Link to={`/profile/${comment.user.username}`} className="post-modal-comment-username" onClick={handleClose}>
-                      {comment.user.username}
-                    </Link>
-                    <span className="post-modal-comment-text">{comment.text}</span>
-                  </div>
-                  <div className="comment-action-buttons">
-                    <button
-                      className={`like-comment-btn ${likedComment ? 'liked' : ''}`}
-                      onClick={() => handleLikeComment(comment._id)}
-                      title={likedComment ? 'Unlike comment' : 'Like comment'}
-                    >
-                      <i className={`fas fa-heart ${likedComment ? 'filled' : ''}`}></i>
-                      <span>{comment.likes ? comment.likes.length : 0}</span>
-                    </button>
-                    {(isOwnPost || (comment.user && comment.user._id && currentUser && (currentUser._id || currentUser.id) && comment.user._id.toString() === (currentUser._id || currentUser.id).toString())) && (
-                      <button
-                        className="delete-comment-btn"
-                        onClick={() => handleDeleteComment(comment._id)}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+      {postData.comments && postData.comments.map((comment) => {
+        const likedComment = comment.likes && comment.likes.some(like => like._id && like._id.toString() === userId.toString());
+        return (
+          <div key={comment._id} className="post-modal-comment">
+            <Link to={`/profile/${comment.user.username}`} onClick={handleClose}>
+              <img src={getProfilePicUrl(comment.user.profilePic)} alt={comment.user.username} className="post-modal-comment-avatar" />
+            </Link>
+            <div className="post-modal-comment-body">
+              <Link to={`/profile/${comment.user.username}`} className="post-modal-comment-username" onClick={handleClose}>
+                {comment.user.username}
+              </Link>
+              <span className="post-modal-comment-text">{comment.text}</span>
+            </div>
+            <div className="comment-action-buttons">
+              {/* <button
+                className={`like-comment-btn ${likedComment ? 'liked' : ''}`}
+                onClick={() => handleLikeComment(comment._id)}
+                title={likedComment ? 'Unlike comment' : 'Like comment'}
+              >
+                <i className={`fas fa-heart ${likedComment ? 'filled' : ''}`}></i>
+                <span>{comment.likes ? comment.likes.length : 0}</span>
+              </button> */}
+              {(isOwnPost || (comment.user && comment.user._id && currentUser && (currentUser._id || currentUser.id) && comment.user._id.toString() === (currentUser._id || currentUser.id).toString())) && (
+                <button
+                  className="delete-comment-btn"
+                  onClick={() => handleDeleteComment(comment._id)}
+                >
+                  <i className="fas fa-trash"></i>
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 
