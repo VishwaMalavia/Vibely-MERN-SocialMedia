@@ -1,6 +1,6 @@
 .archive-container {
   min-height: 100vh;
-  /* background: var(--bg-primary); */
+  background: var(--bg-primary);
   /* padding-top: 60px; */
   padding-bottom: 60px;
 }
@@ -80,12 +80,11 @@
 }
 
 .archive-actions {
-  display: flex;
+  display: flex; 
   gap: 12px;
   padding: 16px;
   border-top: 1px solid var(--border-color);
-  /* background: var(--bg-primary); */
-  background-color: red;
+  background: var(--bg-primary); 
 }
 
 .restore-btn,
@@ -98,23 +97,21 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-
 }
 
 .restore-btn {
-  background: #007bff !important; 
+  background: #007bff !important;
+  color: white !important; 
   border: none !important;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 12px 20px;
-  transition: background 0.3s, transform 0.3s; 
-  position:fixed;
-  /* z-index: 99999; */
+  transition: background 0.3s, transform 0.3s;
 }
 
 .restore-btn:hover {
   background: var(--primary-hover) !important;
   color: white !important;
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 

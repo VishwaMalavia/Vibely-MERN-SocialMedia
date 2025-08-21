@@ -148,18 +148,20 @@ const Archive = () => {
             {archivedPosts.length > 0 ? (
               <div className="posts-grid">
                 {archivedPosts.map((post) => (
-                  <div key={post._id} className="post-thumbnail">
-                    <div onClick={() => openPostModal(post)} style={{ cursor: 'pointer' }}>
-                      <img src={getMediaUrl(post.mediaUrl)} alt="Post" />
-                      <div className="post-overlay">
-                        <div className="post-stats">
-                          <span>❤️ {post.likes.length}</span>
-                          <span>💬 {post.comments.length}</span>
+                  <div>
+                    <div key={post._id} className="post-thumbnail">
+                      <div onClick={() => openPostModal(post)} style={{ cursor: 'pointer' }}>
+                        <img src={getMediaUrl(post.mediaUrl)} alt="Post" />
+                        <div className="post-overlay">
+                          <div className="post-stats">
+                            <span>❤️ {post.likes.length}</span>
+                            <span>💬 {post.comments.length}</span>
+                          </div>
                         </div>
+
                       </div>
                     </div>
                     <div className="archive-actions">
-
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -169,7 +171,7 @@ const Archive = () => {
                       >
                         Restore
                       </button>
-                      {/* <button
+                      <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleDeletePost(post._id);
@@ -177,9 +179,10 @@ const Archive = () => {
                         className="delete-btn"
                       >
                         Delete Permanently
-                      </button> */}
+                      </button>
                     </div>
                   </div>
+
                 ))}
               </div>
             ) : (
