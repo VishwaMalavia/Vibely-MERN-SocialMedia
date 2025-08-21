@@ -316,10 +316,12 @@ const Post = ({ post, onPostUpdate, onPostDelete, onClick }) => {
       <div className="post-actions">
         <div className="action-buttons">
           <button
-            className={`action-btn ${liked ? 'liked' : ''}`}
+            className={`action-btn like-button ${liked ? 'liked' : ''}`}
             onClick={handleLike}
           >
-            <i className={`fas fa-heart ${liked ? 'filled' : ''}`}></i>
+            <i className={`fas fa-heart ${liked ? 'filled' : ''}`}> </i>
+            <span >{likesCount}</span>
+
           </button>
           <button
             className="action-btn"
@@ -340,9 +342,9 @@ const Post = ({ post, onPostUpdate, onPostDelete, onClick }) => {
       </div>
 
       {/* Likes Count */}
-      <div className="post-likes">
+      {/* <div className="post-likes">
         <span className="likes-count">{likesCount} likes</span>
-      </div>
+      </div> */}
 
       {/* Caption */}
       <div className="post-caption">

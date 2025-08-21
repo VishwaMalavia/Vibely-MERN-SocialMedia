@@ -186,6 +186,12 @@
   color: #e31b23;
 }
 
+.action-btn.like-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .action-btn.bookmarked {
   color: #667eea;
 }
